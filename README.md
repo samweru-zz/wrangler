@@ -8,7 +8,6 @@ Refugees United Challenge #2
 ```sh	
 
  git clone <path>
-
 ```
 
 2) install nodejs 
@@ -18,15 +17,14 @@ Refugees United Challenge #2
 ```sh	
 
  npm install <pkg>
-
 ```	
 
- a) expressjs - web framework
- b) express-session - sessioning
- c) jade - templationg
- d) monk - mongo client wrapper
- e) body-parser - request parameterizer
- f) node-uuid - universal ID generator
+ a. expressjs - web framework
+ b. express-session - sessioning
+ c. jade - templationg
+ d. monk - mongo client wrapper
+ e. body-parser - request parameterizer
+ f. node-uuid - universal ID generator
 	
 4) mongodb - big data database
 5) import data into mongodb
@@ -34,14 +32,12 @@ Refugees United Challenge #2
 ```sh
 
  ./bin/mongoload
-
-``sh
+```
 
 4) run
 
 ```sh
 
  nmp start
-
 ```
 
