@@ -1,0 +1,20 @@
+#!/bin/bash
+
+mongo localhost:27017 <<\EOF
+
+db.createCollection("counters");
+
+db.counters.insert({_id:"id",sequence_value:5002});
+
+function getNextSequenceValue(sequenceName){
+
+   var sequenceDocument = db.counters.findAndModify({
+
+        query:{_id: sequenceName },
+        update: {$inc:{sequence_value:1}},
+        new:true
+    });
+
+   return sequenceDocument.sequence_value;
+}
+EOF
