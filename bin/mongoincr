@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mongo localhost:27017 <<\EOF
+mongo localhost:27017/refunite <<\EOF
 
 db.createCollection("counters");
 

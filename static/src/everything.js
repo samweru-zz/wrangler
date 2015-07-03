@@ -45,7 +45,12 @@
 
 	$("#login").click(function(){
 
-		if($("#email").isEmpty())
+		var error = 0;
+
+		if($("#email").isEmpty()){
+
+			error++;
+
 			$("#email")
 				.css({
 
@@ -57,8 +62,12 @@
 					$(this)
 						.css("border","1px inset #000")
 				});
+		}
 
-		if($("#password").isEmpty())
+		if($("#password").isEmpty()){
+
+			error++;
+
 			$("#password")
 				.css({
 
@@ -70,6 +79,49 @@
 					$(this)
 						.css("border","1px inset #000")
 				});
+		}
+
+		if(error == 0)
+			$.ajax({
+
+				method: "POST",
+				url: "/auth",
+				data: $("form").jsonize(),
+				beforeSend:function(){
+
+					$(".alert")
+						.hide()
+						.html("");
+
+					$("form input")
+						.attr("disabled","true")
+				}
+			})
+			.done(function( msg ) {
+
+			    $(".alert")
+			    	.css("background-color","light-green")
+			    	.html("Success!");
+
+			    // setTimeout(function(){
+
+			    // 	location.href = "/";
+			    // }, 1000);
+			})
+			.error(function(){
+
+				$(".alert")
+			    	.css("background-color","pink")
+			    	.html("Failed!");
+
+			    $("form input")
+			    	.removeAttr("disabled")
+			})
+			.always(function(){
+
+				$("form input[type=text], form input[type=password]")
+						.removeAttr("disabled");
+			});
 	})
 
 	$("#surname, #othernames, #phone,"+
@@ -136,15 +188,43 @@
 
 				method: "POST",
 				url: "/register/new",
-				data: $("form").jsonize()
+				data: $("form").jsonize(),
+				beforeSend:function(){
+
+					$(".alert")
+						.hide()
+						.html("");
+
+					$("form input, form textarea, form select")
+						.attr("disabled","true")
+				}
 			})
 			.done(function( msg ) {
 
-			    console.log("Success!")
+			    $(".alert")
+			    	.css("background-color","light-green")
+			    	.html("Success!");
+
+			    setTimeout(function(){
+
+			    	location.href = "/";
+			    }, 1000);
 			})
 			.error(function(){
 
-				console.log("Error!");
+				$(".alert")
+			    	.css("background-color","pink")
+			    	.html("Failed!");
+
+			    $("form input[type=button]")
+			    	.removeAttr("disabled")
+			})
+			.always(function(){
+
+				$("form input[type=text], form input[type=date],"+ 
+					"form input[type=date], form input[type=text],"+
+					"form input[type=password], form textarea, form select")
+						.removeAttr("disabled");
 			});
 	})
 })();

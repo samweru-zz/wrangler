@@ -1,4 +1,5 @@
 var express = require('express');
+var session = require('express-session');
 var app = express();
 var path = require('path');
 var bodyParser = require("body-parser");
@@ -23,6 +24,10 @@ app.use(function(req, res, next){
     req.db = db;
     next();
 });
+
+// Session
+app.use(session({ secret: 'secret-sess-key', 
+					cookie: { maxAge: 60000 }}));
 
 app.use('/', index);
 app.use('/people', people);
