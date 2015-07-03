@@ -19,12 +19,12 @@ Refugees United Challenge #2
  npm install <pkg>
 ```	
 
- a. expressjs - web framework
- b. express-session - sessioning
- c. jade - templationg
- d. monk - mongo client wrapper
- e. body-parser - request parameterizer
- f. node-uuid - universal ID generator
+	* expressjs - web framework
+	* express-session - sessioning
+	* jade - templationg
+	* monk - mongo client wrapper
+	* body-parser - request parameterizer
+	* node-uuid - universal ID generator
 	
 4) mongodb - big data database
 5) import data into mongodb
