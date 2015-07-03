@@ -1,0 +1,34 @@
+Backend Challenge #2
+
+In this link http://ge.tt/4qEol8Z/v/0?c we have a JSON
+string of user profiles. Each user profile has the following fields:
+
+id
+guid
+picture
+age
+name
+gender
+company
+phone
+email
+address
+about
+registered
+tags
+friends
+
+Using this information:
+
+Create a simple search engine that improves its results by learning from past user behaviour (previous search queries and profile views)
+Create a ‘people you may know’ feature. Next to each recommended profile, indicate the reason for being selected
+
+Evaluation criteria
+- Functionality
+- Creativity
+- Coding Standards
+- Efficiency
+
+* Provide clear instruction on reproducing your work
+* Give a write-up on your design decisions
+* This problem is open-ended

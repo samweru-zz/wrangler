@@ -1,0 +1,30 @@
+{
+  "name": "refunite",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Refugee United Challenge #2",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "test"
+  },
+  "dependencies": {
+    "jade": "~1.11.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://sweru@bitbucket/refunited-challenge-2"
+  },
+  "keywords": [
+    "nodejs",
+    "js",
+    "html",
+    "css",
+    "mongodb",
+    "monk",
+    "expressjs",
+    "jade"
+  ],
+  "author": "Samuel Weru",
+  "license": "MIT"
+}
