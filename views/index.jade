@@ -1,19 +1,21 @@
 extends base
 
 block content
-	form(method='post',action='/register')
+	div.alert
+	form(method='post',action='/login')
 		table
 			tr
-				td	Username
+				td	Email
 				td 
-					input(type="text", placeholder="Username") 
+					input(type="text", placeholder="Username", id="email", name="email") 
 			tr
 				td	Password
 				td
-					input(type="password", placeholder="Password")
+					input(type="password", placeholder="Password",
+					id="password", name="password")
 			tr
 				td
 				td
-					input(type="button", value="Login") 
+					input(type="button", value="Login", id="login") 
 					&nbsp;
-					a(href="#register") Register
+					a(href="register") Register

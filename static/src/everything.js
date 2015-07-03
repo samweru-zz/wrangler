@@ -31,8 +31,37 @@
 		}
 	});
 
+	$("#login").click(function(){
+
+		if($("#email").isEmpty())
+			$("#email")
+				.css({
+
+					"border":"1px inset red",
+					"border-spacing":"2px"
+				})
+				.focus(function(){
+
+					$(this)
+						.css("border","")
+				});
+
+		if($("#password").isEmpty())
+			$("#password")
+				.css({
+
+					"border":"1px inset red",
+					"border-spacing":"2px"
+				})
+				.focus(function(){
+
+					$(this)
+						.css("border","")
+				});
+	})
+
 	$("#surname, #othernames, #phone,"+
-		"#email,#password, #confirm").focus(function(){
+		"#email, #password, #confirm").focus(function(){
 
 		$(this)
 			.css({
@@ -56,7 +85,7 @@
 					"#confirm"], function(i,e){
 
 			if($(e).isEmpty())
-				$(e).css("border","1px solid red");
+				$(e).css("border","1px inset red");
 			else if(!$(e).isValid())
 				$(".alert")
 					.html($(e)
