@@ -1,3 +1,19 @@
+*{
+
+	font-family: monospace;
+	border-color:grey;
+}
+
+input[type=text],
+input[type=email],
+input[type=password], 
+input[type=date], 
+textarea, select{
+
+	border:1px inset #000;
+	padding: 2px;
+}
+
 div.alert{
 
 	display: none;

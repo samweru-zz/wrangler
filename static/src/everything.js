@@ -28,6 +28,18 @@
 			var el = $(this).get(0);
 			if(el instanceof HTMLInputElement)
 				$(this).val("");
+		},
+		jsonize:function(){
+
+			var json = {}
+			var el = $(this).get(0);
+			if(el instanceof HTMLFormElement)
+				$(this).serializeArray().map(function(item){
+
+					json[item.name]=item.value;
+				});
+
+			return json;
 		}
 	});
 
@@ -43,7 +55,7 @@
 				.focus(function(){
 
 					$(this)
-						.css("border","")
+						.css("border","1px inset #000")
 				});
 
 		if($("#password").isEmpty())
@@ -56,17 +68,17 @@
 				.focus(function(){
 
 					$(this)
-						.css("border","")
+						.css("border","1px inset #000")
 				});
 	})
 
 	$("#surname, #othernames, #phone,"+
-		"#email, #password, #confirm").focus(function(){
+		"#email, #password, #confirm, #dob").focus(function(){
 
 		$(this)
 			.css({
 
-				"border":"",
+				"border":"1px inset #000",
 				"background":""
 			});
 
@@ -75,23 +87,34 @@
 
 	$("#register-save").click(function(){
 
-		$(".alert").html("")
+		var error = 0;
+
+		$(".alert").html("");
 
 		$.each(["#othernames",	
 					"#surname", 
 					"#phone", 
 					"#email",
 					"#password",
-					"#confirm"], function(i,e){
+					"#confirm",
+					"#dob"], function(i,e){
 
-			if($(e).isEmpty())
+			if($(e).isEmpty()){
+
 				$(e).css("border","1px inset red");
-			else if(!$(e).isValid())
+
+				error++;
+			}
+			else if(!$(e).isValid()){
+
 				$(".alert")
 					.html($(e)
 							.css("background","pink")
 							.data("invalid"))
 					.show();
+
+				error++;
+			}
 		});
 
 		if(!$("#password").isEmpty() && !$("#confirm").isEmpty())
@@ -104,6 +127,24 @@
 				$("#password, #confirm")
 					.css("background","pink")
 					.clear();
+
+				error++;
 			}
+
+		if(error == 0)
+			$.ajax({
+
+				method: "POST",
+				url: "/register/new",
+				data: $("form").jsonize()
+			})
+			.done(function( msg ) {
+
+			    console.log("Success!")
+			})
+			.error(function(){
+
+				console.log("Error!");
+			});
 	})
 })();
