@@ -11,19 +11,17 @@ router.get('/', function(req, res){
 router.post('/new', function(req, res){
 
 	var db = req.db;
-	var collection = db.get('people');
 	var body = req.body;
-	console.log(body.password);
 
-	db.get('people').count({}, function(err, count){
+	db.people.count({}, function(err, count){
 		
-		password_hash = crypto
-							.createHmac('sha1', "secret-key")
-								.update(body.password).digest('hex');
+		hash = crypto
+				.createHmac('sha1', "secret-key")
+					.update(body.password).digest('hex');
 
 		body.id = count + 1;
 		body.guid = uuid();
-		body.password = password_hash;
+		body.password = hash;
 		body.picture = "http://placehold.it/32x32";
 		body.tags = [];
 		body.friends = [];
@@ -35,7 +33,7 @@ router.post('/new', function(req, res){
 		delete body.surname
 		delete body.othernames
 
-		collection.insert(body, function(err, bug){
+		db.people.insert(body, function(err, bug){
 
 			if (err) 
 				res.json(500, err);

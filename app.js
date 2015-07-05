@@ -3,7 +3,9 @@ var session = require('express-session');
 var app = express();
 var path = require('path');
 var bodyParser = require("body-parser");
-var db = require('monk')('localhost:27017/refunite');
+var debug = require("debug");
+var mongojs = require("mongojs")
+var db = mongojs("refunite", ['people']);
 
 // Jade
 app.set('views', __dirname+'/views');
@@ -24,6 +26,17 @@ app.use(function(req, res, next){
     req.db = db;
     next();
 });
+
+app.use(require('express-bunyan-logger')({
+
+    name: 'logger',
+    streams: [{
+
+        level: 'info',
+        // stream: stream
+        stream: process.stdout
+    }]
+}));
 
 // Session
 app.use(session({ secret: 'secret-sess-key', 

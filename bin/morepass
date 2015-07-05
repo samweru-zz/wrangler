@@ -1,0 +1,80 @@
+#!/usr/bin/env node
+
+if(process.argv[2] === undefined){
+
+	console.log("First argument email is empty!");
+	process.exit();
+}
+else{
+
+	var email = process.argv[2];
+	if(!/^(.+)@(.+)\.(.+)$/.test(email)){
+
+		console.log("Invalid Email!");
+		process.exit();
+	}
+}
+
+readline = require("readline");
+
+var rl = readline.createInterface({
+
+	input: process.stdin,
+	output: process.stdout
+});
+
+function getPassword(query, callback) {
+
+	i = 2;
+    var stdin = process.openStdin();
+    process.stdin.on("data", function(char) {
+
+    	char = char + "";
+        switch (char) {
+
+	        case "\n":
+	        case "\r":
+	        case "\u0004":
+	            stdin.pause();
+	            break;
+	        default:
+	            process.stdout.write("\033[2K\033[200D"+query+"["+Array(i).join("*")+"]");
+	            i++;
+	            break;
+        }
+    });
+
+    rl.question(query, function(value) {
+
+        rl.history = rl.history.slice(1);
+        callback(value);
+    });
+}
+
+getPassword("password : ", function(password) {
+
+    if(password === ""){
+
+    	console.log("Password is empty!");
+    	process.exit();
+    }
+	else{
+
+		var crypto = require('crypto');
+		var db = require("mongojs")("refunite", ["people"]);
+		var collection = db.people;
+		var hash = crypto
+					.createHmac('sha1', "secret-key")
+						.update(password).digest('hex');
+
+		collection.update({'email': email}, {'password': hash}, {}, function(err, docs){
+
+			if(err)
+				console.log("Failed!");
+			else
+				console.log("Success!");
+
+			process.exit();
+		});
+	}
+});
