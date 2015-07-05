@@ -5,7 +5,7 @@ var router = express.Router();
 
 router.get('/', function(req, res){
 
-	res.render('register', {});
+	res.render('register', {endpoint:"/register"});
 });
 
 router.post('/new', function(req, res){

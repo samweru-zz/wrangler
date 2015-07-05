@@ -1,0 +1,12 @@
+extends base
+
+block content
+	- var page = "profile"
+	include head.jade
+	div.alert
+	form(method='post',action='#{endpoint}')
+		include form.jade
+		table
+			tr
+				td
+					input(type="button", value="Save", id="profile-save")

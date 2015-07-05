@@ -1,0 +1,11 @@
+extends base
+
+block content
+	- var page = "search"
+	include head.jade
+	table(width="100%")
+		tr
+			td(align="center")
+				input(type="search", placeholder="Search", name="search", id="search", size="60")
+				&nbsp;
+				input(type="button", value="Search" id="btn-search")

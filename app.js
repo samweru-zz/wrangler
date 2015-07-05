@@ -42,8 +42,10 @@ app.use(session({ secret: 'secret-sess-key',
 
 //import routes
 app.use('/', require('./routes/index'));
-app.use('/people', require('./routes/people'));
+app.use('/search', require('./routes/search'));
 app.use('/register', require('./routes/register'));
+app.use('/change', require('./routes/change'));
+app.use('/profile', require('./routes/profile'));
 
 //start server
 app.listen(3333);

@@ -1,0 +1,18 @@
+table(width="100%", class="topbar")
+	tr
+		td
+			if page != "profile"
+				a(href="/profile") My Profile
+			else
+				| My Profile
+			&nbsp;|&nbsp;
+			if page != "change"
+				a(href="/change") Change Password
+			else
+				| Change Password
+			&nbsp;|&nbsp;
+			if page != "search"
+				a(href="/search") Search
+			else
+				| Search
+			&nbsp;

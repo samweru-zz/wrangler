@@ -27,3 +27,16 @@ div.title{
 
 	padding: 3px;
 }
+
+table.topbar a{
+
+	text-decoration: none;
+}
+
+table.topbar{
+
+	border-bottom:1px solid #000;
+	padding-top: 5px;
+	padding-bottom: 15px;
+	margin-bottom: 20px;
+}
