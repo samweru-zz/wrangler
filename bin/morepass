@@ -67,7 +67,7 @@ getPassword("password : ", function(password) {
 					.createHmac('sha1', "secret-key")
 						.update(password).digest('hex');
 
-		collection.update({'email': email}, {'password': hash}, {}, function(err, docs){
+		collection.update({'email': email}, {$set:{'password': hash}}, {}, function(err, docs){
 
 			if(err)
 				console.log("Failed!");

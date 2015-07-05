@@ -1,20 +1,24 @@
 #!/bin/bash
 
-mongo localhost:27017/refunite <<\EOF
+mongo <<\EOF
+	
+db.createCollection('counters');
 
-db.createCollection("counters");
+db.counters.insert({_id:'id', sequence_value:5000});
 
-db.counters.insert({_id:"id",sequence_value:5002});
+db.system.js.save({
 
-function getNextSequenceValue(sequenceName){
+    _id: 'getNextSequenceValue',
+    value : function (sequenceName){
 
-   var sequenceDocument = db.counters.findAndModify({
+	   var sequenceDocument = db.counters.findAndModify({
 
-        query:{_id: sequenceName },
-        update: {$inc:{sequence_value:1}},
-        new:true
-    });
+	        query:{_id: sequenceName },
+	        update: {$inc:{sequence_value:1}},
+	        new:true
+	    });
 
-   return sequenceDocument.sequence_value;
-}
+	   return sequenceDocument.sequence_value;
+	}
+});	
 EOF
