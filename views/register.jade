@@ -3,7 +3,7 @@ extends base
 block content
 	div.title Registration
 	div.alert
-	form(method='post',action='#{endpoint}')
 	- var page = "register"
+	form(id="#{page}")
 		include form.jade
 		include password.jade

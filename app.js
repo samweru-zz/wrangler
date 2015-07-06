@@ -36,7 +36,7 @@ app.use(logger({
     }]
 }));
 
-// Session
+// session
 app.use(session({ secret: 'secret-sess-key', 
 					cookie: { maxAge: 60000 }}));
 
@@ -44,6 +44,7 @@ app.use(function(req, res, next){
 
 	if(["/search", 
 		"/profile", 
+		"/profile/update", 
 		"/change"].indexOf(req.originalUrl) >= 0)
 		if(!req.session.user){
 

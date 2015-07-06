@@ -86,7 +86,7 @@
 
 				method: "POST",
 				url: "/login",
-				data: $("form").jsonize(),
+				data: $("form#login").jsonize(),
 				beforeSend:function(){
 
 					$(".alert")
@@ -103,10 +103,22 @@
 			    	.css("background-color","light-green")
 			    	.html("Success!");
 
-			    setTimeout(function(){
+			    if(msg.login=="successful"){
 
-			    	location.href = "/search";
-			    }, 1000);
+			    	setTimeout(function(){
+
+				    	location.href = "/search";
+				    }, 1000);
+			    }
+			    else if(msg.login=="failed"){
+
+			    	$("form input")
+						.removeAttr("disabled");
+
+			    	$(".alert")
+			    		.show()
+			    		.html("Login has failed!")
+			    }
 			})
 			.error(function(){
 
@@ -137,11 +149,7 @@
 		$(".alert").hide("1000");
 	})
 
-	$("#register-save").click(function(){
-
-		var error = 0;
-
-		$(".alert").html("");
+	var formValidate = function(error){
 
 		$.each(["#othernames",	
 					"#surname", 
@@ -151,23 +159,29 @@
 					"#confirm",
 					"#dob"], function(i,e){
 
-			if($(e).isEmpty()){
+			if($(e).get(0) !== undefined)
+				if($(e).isEmpty()){
 
-				$(e).css("border","1px inset red");
+					$(e).css("border","1px inset red");
 
-				error++;
-			}
-			else if(!$(e).isValid()){
+					error++;
+				}
+				else if(!$(e).isValid()){
 
-				$(".alert")
-					.html($(e)
-							.css("background","pink")
-							.data("invalid"))
-					.show();
+					$(".alert")
+						.html($(e)
+								.css("background","pink")
+								.data("invalid"))
+						.show();
 
-				error++;
-			}
+					error++;
+				}
 		});
+
+		return error;
+	}
+
+	var passwordValidate = function(error){
 
 		if(!$("#password").isEmpty() && !$("#confirm").isEmpty())
 			if(!$("#password").equals($("#confirm").val())){
@@ -183,12 +197,23 @@
 				error++;
 			}
 
+		return error;
+	}
+
+	$("#register-save").click(function(){
+
+		$(".alert").html("");
+
+		var error = 0;
+		error = formValidate(error);
+		error = passwordValidate(error);
+
 		if(error == 0)
 			$.ajax({
 
 				method: "POST",
 				url: "/register/new",
-				data: $("form").jsonize(),
+				data: $("form#register").jsonize(),
 				beforeSend:function(){
 
 					$(".alert")
@@ -202,7 +227,8 @@
 			.done(function( msg ) {
 
 			    $(".alert")
-			    	.css("background-color","light-green")
+			    	.show()
+			    	.css("background-color","lightgreen")
 			    	.html("Success!");
 
 			    setTimeout(function(){
@@ -213,6 +239,7 @@
 			.error(function(){
 
 				$(".alert")
+					.show()
 			    	.css("background-color","pink")
 			    	.html("Failed!");
 
@@ -227,4 +254,48 @@
 						.removeAttr("disabled");
 			});
 	})
+
+	$("#profile-save").click(function(){
+
+		$(".alert").html("");
+
+		var error = 0;
+		error = formValidate(error);
+
+		if(error == 0)
+			$.ajax({
+
+				method: "POST",
+				url: "/profile/update",
+				data: $("form#profile").jsonize(),
+				beforeSend:function(){
+
+					$(".alert")
+						.hide()
+						.html("");
+
+					$("form input, form textarea, form select")
+						.attr("disabled","true")
+				}
+			})
+			.done(function( msg ) {
+
+			    $(".alert")
+			    	.show()
+			    	.css("background-color","lightgreen")
+			    	.html("Success!");
+			})
+			.error(function(){
+
+				$(".alert")
+					.show()
+			    	.css("background-color","pink")
+			    	.html("Failed!");
+			})
+			.always(function(){
+
+				$("form input, form textarea, form select")
+					.removeAttr("disabled");
+			});
+	});
 })();

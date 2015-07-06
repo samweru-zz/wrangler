@@ -3,10 +3,6 @@ var crypto = require('crypto');
 var router = express.Router();
 
 router.get('/', function(req, res){
-
-	// if(req.session.user)
-	// 	res.redirect("/search");
-	// else
 		
 	res.render('index');
 });
@@ -20,23 +16,26 @@ router.post('/login', function(req, res){
 						.createHmac('sha1', "secret-key")
 							.update(body.password).digest('hex');
 
-	db.people.find({"email": body.email, 
-						"password": password_hash}, function(err, usr){
+	db.people.findOne({"email": body.email, 
+						"password": password_hash}, function(err, user){
 
-							if (err){
-
+							if (err)
 								res.json(500, err);
-							}
-							else{
+							else
+  								if(user){
 
-								req.session.user = {
+  									req.session.user = {
 
-									email: usr.email,
-									name: usr.name,
-								};
+										"email": user.email,
+										"name": user.name
+									};
 
-								res.json(201, usr)
-							}	
+									res.json(201, {"login":"successful"});
+  								}
+								else{
+
+									res.json(201, {"login":"failed"});
+								}
 						});
 });
 
