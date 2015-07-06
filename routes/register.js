@@ -5,6 +5,10 @@ var router = express.Router();
 
 router.get('/', function(req, res){
 
+	// if(req.session.user)
+	// 	res.redirect("/search");
+	// else
+		
 	res.render('register', {endpoint:"/register"});
 });
 

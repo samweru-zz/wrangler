@@ -31,7 +31,7 @@ app.use(logger({
     name: 'logger',
     streams: [{
 
-        level: 'info',
+        level: 'off',
         stream: process.stdout
     }]
 }));
@@ -39,6 +39,29 @@ app.use(logger({
 // Session
 app.use(session({ secret: 'secret-sess-key', 
 					cookie: { maxAge: 60000 }}));
+
+app.use(function(req, res, next){
+
+	if(["/search", 
+		"/profile", 
+		"/change"].indexOf(req.originalUrl) >= 0)
+		if(!req.session.user){
+
+			res.redirect("/");
+			return;
+		}
+		else;
+	else
+		if(["/", 
+			"/register"].indexOf(req.originalUrl) >= 0)
+			if(req.session.user){
+
+				res.redirect("/search");
+				return;
+			}
+
+	next();
+})
 
 //import routes
 app.use('/', require('./routes/index'));

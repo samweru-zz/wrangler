@@ -85,7 +85,7 @@
 			$.ajax({
 
 				method: "POST",
-				url: "/auth",
+				url: "/login",
 				data: $("form").jsonize(),
 				beforeSend:function(){
 
@@ -103,10 +103,10 @@
 			    	.css("background-color","light-green")
 			    	.html("Success!");
 
-			    // setTimeout(function(){
+			    setTimeout(function(){
 
-			    // 	location.href = "/";
-			    // }, 1000);
+			    	location.href = "/search";
+			    }, 1000);
 			})
 			.error(function(){
 

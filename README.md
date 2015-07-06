@@ -48,3 +48,9 @@ Refugees United Challenge #2
  nmp start
 ```
 
+OR
+
+```sh
+ nodemon | bunyan
+```
+

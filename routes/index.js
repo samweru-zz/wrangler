@@ -4,29 +4,51 @@ var router = express.Router();
 
 router.get('/', function(req, res){
 
+	// if(req.session.user)
+	// 	res.redirect("/search");
+	// else
+		
 	res.render('index');
 });
 
-router.post('/auth', function(req, res){
+router.post('/login', function(req, res){
 
-	db = req.db;
-	collection = db.get("people");
+	var db = req.db;
+	var body = req.body;
 
-	body = req.body;
 	password_hash = crypto
 						.createHmac('sha1', "secret-key")
 							.update(body.password).digest('hex');
 
-	collection.find({"email": body.email, 
-						"password": password_hash}, function(err, user){
+	db.people.find({"email": body.email, 
+						"password": password_hash}, function(err, usr){
 
-							console.log(user);
+							if (err){
 
-							if (err) 
 								res.json(500, err);
-							else 
-								res.json(201, user)
+							}
+							else{
+
+								req.session.user = {
+
+									email: usr.email,
+									name: usr.name,
+								};
+
+								res.json(201, usr)
+							}	
 						});
+});
+
+router.get('/logout', function(req, res){
+
+	req.session.destroy(function(err) {
+	  
+	  	if(err)
+	  		res.send("Failed to logout!");
+	  	else
+	  		res.redirect("/");
+	})
 });
 
 module.exports = router;

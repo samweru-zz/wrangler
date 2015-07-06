@@ -1,6 +1,6 @@
 table(width="100%", class="topbar")
 	tr
-		td
+		td(width="100%")
 			if page != "profile"
 				a(href="/profile") My Profile
 			else
@@ -16,3 +16,5 @@ table(width="100%", class="topbar")
 			else
 				| Search
 			&nbsp;
+		td
+			a(href="/logout") Logout
