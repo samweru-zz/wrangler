@@ -1,30 +1,30 @@
 table
 	tr
 		td 
-			input(type="text", placeholder="Surname", name="surname", id="surname", value="#{user.surname}") 
+			input(type="text", placeholder="Surname", name="surname", id="surname")
 		td
-			input(type="text", placeholder="Othernames", size="40", name="othernames", id="othernames", value="#{user.othernames}")
+			input(type="text", placeholder="Othernames", size="40", name="othernames", id="othernames")
 	tr
 		td(colspan="2")
-			textarea(rows="4", cols="50", placeholder="Address", name="address", id="address") #{user.address}
+			textarea(rows="4", cols="50", placeholder="Address", name="address", id="address")
 	tr
 		td
 			|Gender:
 			&nbsp;
-			select(name="gender", id="gender", value="#{user.gender}")
+			select(name="gender", id="gender")
 				option Male
 				option Female
 		td
 			| DOB:
-			input(type="date", max="#{new Date().getFullYear()-18}-12-31", id="dob", name="dob", value="#{user.dob}")
+			input(type="date", max="#{new Date().getFullYear()-18}-12-31", id="dob", name="dob")
 	tr
 		td
-			input(type="text", placeholder="Company", name="company", id="company", value="#{user.company}")
+			input(type="text", placeholder="Company", name="company", id="company")
 	tr
 		td
-			input(type="text", placeholder="Phone", name="phone", id="phone", , value="#{user.phone}")
+			input(type="text", placeholder="Phone", name="phone", id="phone")
 		td
-			input(type="email", placeholder="Email", name="email", id="email", data-invalid="Invalid Email!", value="#{user.email}")
+			input(type="email", placeholder="Email", name="email", id="email", data-invalid="Invalid Email!")
 	tr
 		td(colspan="2")
-			textarea(rows="4", cols="50", placeholder="About You", name="about", id="about") #{user.about}
+			textarea(rows="4", cols="50", placeholder="About You", name="about", id="about")

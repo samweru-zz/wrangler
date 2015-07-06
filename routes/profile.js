@@ -1,8 +1,12 @@
 var express = require('express');
-var crypto = require('crypto');
 var router = express.Router();
 
 router.get('/', function(req, res){
+
+	res.render('profile');
+});
+
+router.post('/view', function(req, res){
 
 	var db = req.db;
 	var session = req.session;
@@ -13,19 +17,28 @@ router.get('/', function(req, res){
 		user.surname = names[0];
 		user.othernames = names[1].trim();
 
+		delete user.password
+
 		if(err)
-			res.send("Failed to load profile");
+			res.json({"view":"failed"});
 		else
-			res.render('profile', {"user":user});
+			res.json({"view":"successful", "user":user});
 	});
 });
 
 router.post("/update", function(req, res){
 
+	var db = req.db;
 	var body = req.body;
-	console.log(req.session);
-	console.log(body);
-	res.json({});
+	var session = req.session;
+
+	db.people.update({'id': session.user.id}, {$set:body}, {}, function(err, docs){
+
+		if(err)
+			res.json({"update":"failed"});
+		else
+			res.json({"update":"successful"});
+	});
 })
 
 module.exports = router;

@@ -43,7 +43,7 @@
 		}
 	});
 
-	$("#login").click(function(){
+	$("#btn-login").click(function(){
 
 		var error = 0;
 
@@ -137,7 +137,7 @@
 	})
 
 	$("#surname, #othernames, #phone,"+
-		"#email, #password, #confirm, #dob").focus(function(){
+		"#email, #password, #confirm, #current, #dob").focus(function(){
 
 		$(this)
 			.css({
@@ -157,7 +157,8 @@
 					"#email",
 					"#password",
 					"#confirm",
-					"#dob"], function(i,e){
+					"#dob",
+					"#current"], function(i,e){
 
 			if($(e).get(0) !== undefined)
 				if($(e).isEmpty()){
@@ -280,10 +281,17 @@
 			})
 			.done(function( msg ) {
 
-			    $(".alert")
-			    	.show()
-			    	.css("background-color","lightgreen")
-			    	.html("Success!");
+				if(msg.update == "successful")
+				    $(".alert")
+				    	.show()
+				    	.css("background-color","lightgreen")
+				    	.html("Success!");
+				else 
+					if(msg.update == "failed")
+						$(".alert")
+				    		.show()
+				    		.css("background-color","pink")
+				    		.html("Failed!");
 			})
 			.error(function(){
 
@@ -298,4 +306,124 @@
 					.removeAttr("disabled");
 			});
 	});
+
+	$("#change-pass").click(function(){
+
+		var error = 0;
+		error = formValidate(error);
+		error = passwordValidate(error);
+
+		if(error == 0)
+			$.ajax({
+
+				method: "POST",
+				url: "/change/password",
+				data:$("form#change").jsonize(),
+				beforeSend:function(){
+
+					$(".alert")
+						.show()
+						.html("changing password...")
+						.css("background-color","orange");
+
+					$("form input, form textarea, form select")
+						.attr("disabled","true")
+				}
+			})
+			.done(function(msg){
+
+				if(msg.modify == "successful"){
+
+					$(".alert")
+						.show()
+			    		.css("background-color","lightgreen")
+			    		.html("Update Successful.");
+				}
+				else
+					if(msg.modify == "failed"){
+
+						$(".alert")
+							.show()
+					    	.css("background-color","pink")
+					    	.html("Update Failed!");
+				}
+			})
+			.error(function(){
+
+				$(".alert")
+					.show()
+			    	.css("background-color","pink")
+			    	.html("Update Failed!");
+			})
+			.always(function(){
+
+				$("form input[type=password]").clear();
+				$("form input, form textarea, form select")
+						.removeAttr("disabled");
+			})
+	})
+
+	if($("#profile").get(0) !== undefined)
+		$.ajax({
+
+			method: "POST",
+			url: "/profile/view",
+			beforeSend:function(){
+
+				$(".alert")
+					.show()
+					.html("loading...")
+					.css("background-color","orange");
+
+				$("form input, form textarea, form select")
+					.attr("disabled","true")
+			}
+		})
+		.done(function(msg){
+
+			if(msg.view == "successful"){
+
+				$(".alert")
+					.show()
+		    		.css("background-color","lightgreen")
+		    		.html("Load Successful.");
+
+				var user = msg.user;
+				var names = user.name.split(",");
+
+				$("#surname").val(names[0]);
+				$("#othernames").val(names[1]);
+				$("#address").val(user.address);
+				$("#gender").val(user.gender);
+				$("#dob").val(user.dob);
+				$("#company").val(user.company);
+				$("#phone").val(user.phone);
+				$("#email").val(user.email);
+				$("#about").val(user.about);
+
+				$("form input, form textarea, form select")
+					.removeAttr("disabled")
+
+				setTimeout(function(){
+
+					$(".alert").hide();
+
+				}, 1000);
+			}
+			else
+				if(msg.view == "failed"){
+
+				$(".alert")
+					.show()
+			    	.css("background-color","pink")
+			    	.html("Load Failed!");
+			}
+		})
+		.error(function(){
+
+			$(".alert")
+				.show()
+		    	.css("background-color","pink")
+		    	.html("Load Failed!");
+		})
 })();

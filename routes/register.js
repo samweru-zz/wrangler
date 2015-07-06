@@ -1,6 +1,6 @@
 var express = require('express');
 var uuid = require('node-uuid');
-var crypto = require('crypto');
+var sha1 = require("../scripts/sha1");
 var router = express.Router();
 
 router.get('/', function(req, res){
@@ -34,13 +34,9 @@ router.post('/new', function(req, res){
 	db.people.find({}).limit(1).sort({_id:-1})
 		.toArray(function (err, docs) {
 
-			hash = crypto
-					.createHmac('sha1', "secret-key")
-						.update(body.password).digest('hex');
-
 			body.id = docs[0].id + 1;
 			body.guid = uuid();
-			body.password = hash;
+			body.password = sha1.password(body.password);
 			body.picture = "http://placehold.it/32x32";
 			body.tags = [];
 			body.friends = [];

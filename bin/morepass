@@ -60,12 +60,10 @@ getPassword("password : ", function(password) {
     }
 	else{
 
-		var crypto = require('crypto');
+		var sha1 = require("../scripts/sha1");
 		var db = require("mongojs")("refunite", ["people"]);
 		var collection = db.people;
-		var hash = crypto
-					.createHmac('sha1', "secret-key")
-						.update(password).digest('hex');
+		var hash = sha1.password(password);
 
 		collection.update({'email': email}, {$set:{'password': hash}}, {}, function(err, docs){
 

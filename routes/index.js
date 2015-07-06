@@ -1,5 +1,6 @@
 var express = require('express');
 var crypto = require('crypto');
+var sha1 = require("../scripts/sha1");
 var router = express.Router();
 
 router.get('/', function(req, res){
@@ -12,12 +13,8 @@ router.post('/login', function(req, res){
 	var db = req.db;
 	var body = req.body;
 
-	password_hash = crypto
-						.createHmac('sha1', "secret-key")
-							.update(body.password).digest('hex');
-
 	db.people.findOne({"email": body.email, 
-						"password": password_hash}, function(err, user){
+						"password": sha1.password(body.password)}, function(err, user){
 
 							if (err)
 								res.json(500, err);
@@ -27,7 +24,8 @@ router.post('/login', function(req, res){
   									req.session.user = {
 
 										"email": user.email,
-										"name": user.name
+										"name": user.name,
+										"id": user.id
 									};
 
 									res.json(201, {"login":"successful"});

@@ -44,7 +44,8 @@ app.use(function(req, res, next){
 
 	if(["/search", 
 		"/profile", 
-		"/profile/update", 
+		"/profile/update",
+		"/profile/view",
 		"/change"].indexOf(req.originalUrl) >= 0)
 		if(!req.session.user){
 

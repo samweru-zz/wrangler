@@ -1,7 +1,6 @@
 extends base
 
 block content
-	div.alert
-	form
 	- var page = "change"
+	form(id="#{page}")
 		include password
