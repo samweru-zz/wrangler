@@ -4,8 +4,7 @@ var logger = require('express-bunyan-logger');
 var app = express();
 var path = require('path');
 var bodyParser = require("body-parser");
-var debug = require("debug");
-var mongojs = require("mongojs")
+var mongojs = require("mongojs");
 var db = mongojs("refunite", ['people']);
 
 // Jade
@@ -41,6 +40,8 @@ app.use(session({ secret: 'secret-sess-key',
 					cookie: { maxAge: 60000 }}));
 
 app.use(function(req, res, next){
+
+	res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 
 	if(["/search", 
 		"/profile", 

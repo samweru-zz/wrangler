@@ -25,16 +25,28 @@ Refugees United Challenge #2
 
 ```sh	
  npm install <pkg>
+```
+
+3.1) install globally and link global packages to local project
+
+```sh	
+ sudo npm i <pkg> -g
+ npm link <pkg>
 ```	
 
 * expressjs - web framework
 * express-session - sessioning
-* jade - templationg
-* monk - mongo client wrapper
+* express-bunyan-logger - change logger level `off` to `info` in app.js
+* jade - templating
+* mongojs - implements the mongo api
 * body-parser - request parameterizer
 * node-uuid - universal ID generator
 	
 4) install mongodb - big data database
+
+```sh
+ sudo apt-get install mongodb
+```
 
 5) import data into mongodb
 
@@ -48,9 +60,8 @@ Refugees United Challenge #2
  nmp start
 ```
 
-OR
+4.1) OR if you have installed nodemon (nodejs on daemon) and bunyan logger
 
 ```sh
  nodemon | bunyan
 ```
-

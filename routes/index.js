@@ -40,7 +40,7 @@ router.post('/login', function(req, res){
 router.get('/logout', function(req, res){
 
 	req.session.destroy(function(err) {
-	  
+
 	  	if(err)
 	  		res.send("Failed to logout!");
 	  	else
