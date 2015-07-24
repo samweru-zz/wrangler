@@ -7,10 +7,9 @@ var bodyParser = require("body-parser");
 var mongojs = require("mongojs");
 var db = mongojs("refunite", ['people']);
 
-// Jade
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
 app.set('views', __dirname+'/views');
-app.set('view engine', 'jade');
-app.engine('jade', require('jade').__express);
 
 // static content
 app.use(bodyParser.json());
@@ -30,7 +29,7 @@ app.use(logger({
     name: 'logger',
     streams: [{
 
-        level: 'off',
+        level: 'info',
         stream: process.stdout
     }]
 }));
@@ -43,32 +42,37 @@ app.use(function(req, res, next){
 
 	res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 
-	if(["/search", 
-		"/profile", 
-		"/profile/update",
-		"/profile/view",
-		"/change"].indexOf(req.originalUrl) >= 0)
-		if(!req.session.user){
+	if(req.xhr){
 
-			res.redirect("/");
-			return;
+		if(["/profile/update",
+			"/profile/view",
+			"/change"].indexOf(req.originalUrl) >= 0){
+
+			if(!req.session.user)
+				res.json(201, {"request":"failed"});
 		}
-		else;
-	else
-		if(["/", 
-			"/register"].indexOf(req.originalUrl) >= 0)
-			if(req.session.user){
+		else if(["/", "/register"].indexOf(req.originalUrl) >= 0){
 
-				res.redirect("/search");
-				return;
-			}
+			if(req.session.user)
+				res.json(201, {"request":"failed"});
+		}
+	}
+	else{
+
+		if(req.originalUrl!="/auth/logout"){
+
+			if(!req.session.user)
+				res.render("guest");
+			else
+				res.render("authorized");
+		}
+	}
 
 	next();
 })
 
 //import routes
-app.use('/', require('./routes/index'));
-app.use('/search', require('./routes/search'));
+app.use('/auth', require('./routes/auth'));
 app.use('/register', require('./routes/register'));
 app.use('/change', require('./routes/change'));
 app.use('/profile', require('./routes/profile'));

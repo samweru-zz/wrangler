@@ -40,3 +40,11 @@ table.topbar{
 	padding-bottom: 15px;
 	margin-bottom: 20px;
 }
+
+.inactive {
+
+   pointer-events: none;
+   cursor: default;
+   text-decoration: none;
+   color: #000;
+}

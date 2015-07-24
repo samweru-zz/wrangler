@@ -3,11 +3,6 @@ var crypto = require('crypto');
 var sha1 = require("../scripts/sha1");
 var router = express.Router();
 
-router.get('/', function(req, res){
-		
-	res.render('index');
-});
-
 router.post('/login', function(req, res){
 
 	var db = req.db;
@@ -44,7 +39,7 @@ router.get('/logout', function(req, res){
 	  	if(err)
 	  		res.send("Failed to logout!");
 	  	else
-	  		res.redirect("/");
+	  		res.redirect("/#login");
 	})
 });
 

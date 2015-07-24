@@ -3,11 +3,6 @@ var router = express.Router();
 
 var sha1 = require("../scripts/sha1");
 
-router.get('/', function(req, res){
-
-	res.render('change');
-});
-
 router.post('/password', function(req, res){
 
 	var db = req.db;

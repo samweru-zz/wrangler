@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# if journal troubles
-# sudo mv /var/lib/mongod/journal /var/lib/mongod/journal.bk
-
-sudo -u mongodb mongod --repair --dbpath /var/lib/mongodb/
+#64 bit uses journaling by default
+sudo -u mongodb mongod --repair --nojournal --dbpath /var/lib/mongodb/
 sudo service mongodb start

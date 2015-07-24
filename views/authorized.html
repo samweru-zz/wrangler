@@ -1,0 +1,79 @@
+<html>
+	<head>
+		<script type="text/javascript" src="js/lib/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="js/lib/jquery.routr.js"></script>
+		<script type="text/javascript" src="js/src/base.js"></script>
+		<script type="text/javascript" src="js/src/authorized.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<script type="text/html" id="tpl-profile">
+			<form id="profile">
+		    	<table>
+		    		<tr>
+		    			<td><input type="surname" id="surname" name="surname" placeholder="Surname"></td>
+		    			<td><input type="othernames" id="othernames" name="othernames" placeholder="Othernames" size="40"></td>
+		    		</tr>
+		    		<tr>
+		    			<td colspan="2"><textarea rows="4" cols="50" placeholder="Address" name="address" id="address"></textarea></td>
+		    		</tr>
+		    		<tr>
+		    			<td>Gender
+		    				<select name="gender" id="gender">
+		    					<option>Male</option>
+		    					<option>Female</option>
+		    				</select>
+		    			</td>
+		    			<td>DOB:
+		    				<input type="date" max="" id="dob" name="dob">
+		    			</td>
+		    		</tr>
+		    		<tr>
+		    			<td><input type="text" placeholder="Company" name="company" id="company"></td>
+		    		</tr>
+		    		<tr>
+		    			<td><input type="text" placeholder="Phone" name="phone" id="phone"></td>
+		    			<td><input type="email" placeholder="Email" name="email" id="email" data-invalid="Invalid Email!"></td>
+		    		</tr>
+		    		<tr>
+		    			<td colspan="2"><textarea rows="4" cols="50" placeholder="About You" name="about" id="about"></textarea></td>
+		    		</tr>
+		    		<tr><td><input type="button" value="Update" id="profile-save"></td></tr>
+		    	</table>
+		    </form>
+		</script>
+		<script type="text/html" id="tpl-change-password">
+			<tr><td><input type="password" placeholder="Current Password" name="current" id="current"></td></tr>
+			<tr><td><input type="password" placeholder="Password" name="password" id="password"></td></tr>
+	    	<tr><td><input type="password" placeholder="Confirm Password" name="confirm" id="confirm"></td></tr>
+	    	<tr><td><input type="button" value="Change Password" id="change-pass"></td></tr>
+		</script>
+		<script type="text/html" id="tpl-top-bar">
+			<table width="100%" class="topbar">
+				<tr>
+					<td width="100%">
+						<a class="bar-profile" href="#profile">Profile</a>&nbsp;|&nbsp;
+						<a class="bar-change" href="#change">Change Password</a>&nbsp;|&nbsp;
+						<a class="bar-search" href="#search">Search</a>
+					</td>
+					<td><a href="/auth/logout">Logout</a></td>
+				</tr>
+			</table>
+		</script>
+		<script type="text/html" id="tpl-search">
+			<table width="100%">
+				<tr>
+					<td align="center">
+						<input type="search" placeholder="Search" name="search" id="search" size="60">
+						&nbsp;
+						<input type="button" value="Search" id="btn-search">
+					</td>
+				</tr>
+			</table>
+		</script>
+	</head>
+	<body>
+	</body>
+	<script>
+		$.routr.run();
+		window.location.hash = "#search";
+	</script>
+</html>

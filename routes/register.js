@@ -3,27 +3,6 @@ var uuid = require('node-uuid');
 var sha1 = require("../scripts/sha1");
 var router = express.Router();
 
-router.get('/', function(req, res){
-
-	var user = {
-
-		id:"",
-        picture:"",
-        age:"",
-        surname:"",
-        othernames:"",
-        gender:"",
-        company:"",
-        phone:"",
-        email:"",
-        address:"",
-        about:"",
-        dob:""
-	};
-
-	res.render('register', {"user":user});
-});
-
 router.post('/new', function(req, res){
 
 	var db = req.db;
