@@ -12,6 +12,12 @@
 		<script type="text/javascript" src="js/src/guest.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<style type="text/css">
+		body {
+			
+			padding-top: 70px;
+		}
+		</style>
 		<script type="text/html" id="tpl-login">
 		    <form id="login" class="form-horizontal">
 		    	<div class="form-group">
@@ -103,6 +109,8 @@
 		</script>
 	</head>
 	<body>
+		<div id="alert"></div>
+		<div id="body-container" class="container"></div>
 	</body>
 	<script>
 		$.routr.run();

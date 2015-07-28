@@ -2,7 +2,9 @@
 
 	$(document).on("click", "#profile-save", function(){
 
-		$(".alert").html("");
+		$("#alert")
+			.empty()
+			.removeClass();
 
 		var error = 0;
 		error = formValidate(error);
@@ -15,9 +17,9 @@
 				data: $("form#profile").jsonize(),
 				beforeSend:function(){
 
-					$(".alert")
-						.hide()
-						.html("");
+					$("#alert")
+						.empty()
+						.removeClass();
 
 					$("form input, form textarea, form select")
 						.attr("disabled","true")
@@ -26,22 +28,19 @@
 			.done(function( msg ) {
 
 				if(msg.update == "successful")
-				    $(".alert")
-				    	.show()
-				    	.css("background-color","lightgreen")
+				    $("#alert")
+				    	.addClass("alert alert-success")
 				    	.html("Success!");
 				else 
 					if(msg.update == "failed")
-						$(".alert")
-				    		.show()
-				    		.css("background-color","pink")
+						$("#alert")
+				    		.addClass("alert alert-danger")
 				    		.html("Failed!");
 			})
 			.error(function(){
 
-				$(".alert")
-					.show()
-			    	.css("background-color","pink")
+				$("#alert")
+					.addClass("alert alert-danger")
 			    	.html("Failed!");
 			})
 			.always(function(){
@@ -65,10 +64,9 @@
 				data:$("form#change").jsonize(),
 				beforeSend:function(){
 
-					$(".alert")
-						.show()
+					$("#alert")
+						.addClass("alert alert-info")
 						.html("changing password...")
-						.css("background-color","orange");
 
 					$("form input, form textarea, form select")
 						.attr("disabled","true")
@@ -78,25 +76,25 @@
 
 				if(msg.modify == "successful"){
 
-					$(".alert")
-						.show()
-			    		.css("background-color","lightgreen")
+					$("#alert")
+						.removeClass()
+			    		.addClass("alert alert-success")
 			    		.html("Update Successful.");
 				}
 				else
 					if(msg.modify == "failed"){
 
-						$(".alert")
-							.show()
-					    	.css("background-color","pink")
+						$("#alert")
+							.removeClass()
+					    	.addClass("alert alert-warning")
 					    	.html("Update Failed!");
 				}
 			})
 			.error(function(){
 
-				$(".alert")
-					.show()
-			    	.css("background-color","pink")
+				$("#alert")
+					.removeClass()
+					.addClass("alert alert-danger")
 			    	.html("Update Failed!");
 			})
 			.always(function(){
@@ -108,6 +106,10 @@
 	})
 	
 	$.routr.add("profile", function(){
+
+		$("#alert")
+			.empty()
+			.removeClass();
 
 		$("#body-container")
 			.empty()
@@ -128,10 +130,9 @@
 			url: "/profile/view",
 			beforeSend:function(){
 
-				$(".alert")
-					.show()
+				$("#alert")
+					.addClass("alert alert-info")
 					.html("loading...")
-					.css("background-color","orange");
 
 				$("form input, form textarea, form select")
 					.attr("disabled","true")
@@ -141,9 +142,9 @@
 
 			if(msg.view == "successful"){
 
-				$(".alert")
-					.show()
-		    		.css("background-color","lightgreen")
+				$("#alert")
+					.removeClass()
+		    		.addClass("alert alert-success")
 		    		.html("Load Successful.");
 
 				var user = msg.user;
@@ -164,29 +165,35 @@
 
 				setTimeout(function(){
 
-					$(".alert").hide();
+					$("#alert")
+						.empty()
+						.removeClass();
 
 				}, 1000);
 			}
 			else
 				if(msg.view == "failed"){
 
-				$(".alert")
-					.show()
-			    	.css("background-color","pink")
+				$("#alert")
+					.removeClass()
+			    	.addClass("alert alert-warning")
 			    	.html("Load Failed!");
 			}
 		})
 		.error(function(){
 
-			$(".alert")
-				.show()
-		    	.css("background-color","pink")
+			$("#alert")
+				.removeClass()
+				.addClass("alert alert-warning")
 		    	.html("Load Failed!");
 		})
 	})
 
-	$.routr.add("change", function(){			
+	$.routr.add("change", function(){
+
+		$("#alert")
+			.empty()
+			.removeClass();		
 
 		$("#body-container")
 			.empty()
@@ -203,6 +210,10 @@
 	})
 
 	$.routr.add("search", function(){
+
+		$("#alert")
+			.empty()
+			.removeClass();
 
 		$("#body-container")
 			.empty()

@@ -4,24 +4,12 @@
 	padding:0px;
 }
 
-body {
-	
-	padding-top: 70px;
-	padding-bottom: 30px;
-}
+div#alert{
 
-.form-horizontal .form-group{
-
-	margin-right: 0;
-}
-
-div.alert{
-
-	display: none;
-	background-color: pink;
-	padding: 3px;
-	min-width:0;
-	border:1px solid #000;
+	max-width: 50%;
+	margin: 0 auto;
+	margin-bottom: 10px;
+	font-weight: bold;
 }
 
 div.title{
@@ -35,4 +23,18 @@ div.title{
    cursor: default;
    text-decoration: none;
    color: #000;
+}
+
+/*Bootstrap Form*/
+
+.form-horizontal .form-group{
+
+	margin-right: 0;
+}
+
+/*Bootstrap Navigation Bar*/
+
+.navbar-fixed-top, .navbar-fixed-bottom {
+		
+	position: relative; /* this can also be static */
 }

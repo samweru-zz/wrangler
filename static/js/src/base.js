@@ -49,14 +49,16 @@
 		$(this)
 			.css({
 
-				"border":"1px inset #000",
+				"border":"1px solid #000",
 				"background":""
 			});
 
-		$(".alert").hide("1000");
+		$("#alert")
+			.empty()
+			.removeClass();
 	})
 
-	var formValidate = function(error){
+	window.formValidate = function(error){
 
 		$.each(["#othernames",	
 					"#surname", 
@@ -70,17 +72,15 @@
 			if($(e).get(0) !== undefined)
 				if($(e).isEmpty()){
 
-					$(e).css("border","1px inset red");
+					$(e).css("border","1px solid red");
 
 					error++;
 				}
 				else if(!$(e).isValid()){
 
-					$(".alert")
-						.html($(e)
-								.css("background","pink")
-								.data("invalid"))
-						.show();
+					$("#alert")
+						.addClass("alert alert-warning")
+						.html($(e).data("invalid"));
 
 					error++;
 				}
@@ -89,14 +89,14 @@
 		return error;
 	}
 
-	var passwordValidate = function(error){
+	window.passwordValidate = function(error){
 
 		if(!$("#password").isEmpty() && !$("#confirm").isEmpty())
 			if(!$("#password").equals($("#confirm").val())){
 
-				$(".alert")
-					.html($(".alert").html().trim().concat(" Passwords do not match!"))
-					.show()
+				$("#alert")
+					.addClass("alert alert-warning")
+					.html($("#alert").html().trim().concat(" Passwords do not match!"))
 
 				$("#password, #confirm")
 					.css("background","pink")

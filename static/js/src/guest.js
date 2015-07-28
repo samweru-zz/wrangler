@@ -2,6 +2,10 @@
 
 	$(document).on("click", "#btn-login", function(){
 
+		$("#alert")
+			.removeClass()
+			.empty();
+
 		var error = 0;
 
 		if($("#email").isEmpty()){
@@ -46,9 +50,9 @@
 				data: $("form#login").jsonize(),
 				beforeSend:function(){
 
-					$(".alert")
-						.hide()
-						.html("");
+					$("#alert")
+						.addClass("alert alert-info")
+			    		.html("wait...");
 
 					$("form input")
 						.attr("disabled","true")
@@ -58,8 +62,9 @@
 
 			    if(msg.login=="successful"){
 
-			    	$(".alert")
-			    		.css("background-color","light-green")
+			    	$("#alert")
+			    		.removeClass()
+			    		.addClass("alert alert-success")
 			    		.html("Success!");
 
 			    	setTimeout(function(){
@@ -72,15 +77,17 @@
 			    	$("form input")
 						.removeAttr("disabled");
 
-			    	$(".alert")
-			    		.show()
+			    	$("#alert")
+			    		.removeClass()
+			    		.addClass("alert alert-danger")
 			    		.html("Login has failed!")
 			    }
 			})
 			.error(function(){
 
-				$(".alert")
-			    	.css("background-color","pink")
+				$("#alert")
+					.removeClass()
+			    	.addClass("alert alert-danger")
 			    	.html("Failed!");
 
 			    $("form input")
@@ -95,7 +102,9 @@
 
 	$(document).on("click", "#register-save", function(){
 
-		$(".alert").html("");
+		$("#alert")
+			.removeClass()
+			.empty();
 
 		var error = 0;
 		error = formValidate(error);
@@ -109,9 +118,9 @@
 				data: $("form#register").jsonize(),
 				beforeSend:function(){
 
-					$(".alert")
-						.hide()
-						.html("");
+					$("#alert")
+						.empty()
+						.removeClass();
 
 					$("form input, form textarea, form select")
 						.attr("disabled","true")
@@ -119,9 +128,9 @@
 			})
 			.done(function( msg ) {
 
-			    $(".alert")
-			    	.show()
-			    	.css("background-color","lightgreen")
+			    $("#alert")
+			    	.removeClass()
+			    	.addClass("alert alert-success")
 			    	.html("Success!");
 
 			    setTimeout(function(){
@@ -131,9 +140,8 @@
 			})
 			.error(function(){
 
-				$(".alert")
-					.show()
-			    	.css("background-color","pink")
+				$("#alert")
+			    	.addClass("alert alert-danger")
 			    	.html("Failed!");
 
 			    $("form input[type=button]")
@@ -150,7 +158,11 @@
 
 	$.routr.add("login", function(){
 
-		$("body")
+		$("#alert")
+			.empty()
+			.removeClass();
+
+		$("#body-container")
 			.empty()
 			.attr("align","center")
 			.html($("#tpl-login").html());
@@ -158,7 +170,11 @@
 
 	$.routr.add("register", function(){
 
-		$("body")
+		$("#alert")
+			.empty()
+			.removeClass();
+
+		$("#body-container")
 			.empty()
 			.append($.parseHTML($("#tpl-register").html().trim()));
 	})

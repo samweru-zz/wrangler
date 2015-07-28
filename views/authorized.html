@@ -12,14 +12,6 @@
 		<script type="text/javascript" src="js/src/authorized.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/style.css">
-		<style>
-
-		#body-container{
-
-
-		}
-
-		</style>
 		<script type="text/html" id="tpl-profile">
 			<form id="profile" class="form-horizontal col-sm-offset-3">
 		    	<div class="form-group">
@@ -82,7 +74,7 @@
 			<form id="change" class="form-horizontal col-sm-offset-4">
 				<div class="form-group">
 					<div class="col-sm-6">
-						<input class="form-control" type="password" placeholder="Current Password" name="confirm" id="confirm">
+						<input class="form-control" type="password" placeholder="Current Password" name="current" id="current">
 					</div>
 				</div>
 				<div class="form-group">
@@ -137,8 +129,8 @@
 			</div>
 	    </div>
 	</nav>
-	<div id="body-container" class="container">
-	</div>
+	<div id="alert"></div>
+	<div id="body-container" class="container"></div>
 	</body>
 	<script>
 		$.routr.run();
