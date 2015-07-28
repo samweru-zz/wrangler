@@ -1,17 +1,18 @@
 *{
 
-	font-family: monospace;
-	border-color:grey;
+	margin:0px;
+	padding:0px;
 }
 
-input[type=text],
-input[type=email],
-input[type=password], 
-input[type=date], 
-textarea, select{
+body {
+	
+	padding-top: 70px;
+	padding-bottom: 30px;
+}
 
-	border:1px inset #000;
-	padding: 2px;
+.form-horizontal .form-group{
+
+	margin-right: 0;
 }
 
 div.alert{
@@ -26,19 +27,6 @@ div.alert{
 div.title{
 
 	padding: 3px;
-}
-
-table.topbar a{
-
-	text-decoration: none;
-}
-
-table.topbar{
-
-	border-bottom:1px solid #000;
-	padding-top: 5px;
-	padding-bottom: 15px;
-	margin-bottom: 20px;
 }
 
 .inactive {

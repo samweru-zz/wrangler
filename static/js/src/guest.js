@@ -152,6 +152,7 @@
 
 		$("body")
 			.empty()
+			.attr("align","center")
 			.html($("#tpl-login").html());
 	})
 
@@ -161,4 +162,5 @@
 			.empty()
 			.append($.parseHTML($("#tpl-register").html().trim()));
 	})
+	
 })();

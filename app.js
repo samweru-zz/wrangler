@@ -36,7 +36,9 @@ app.use(logger({
 
 // session
 app.use(session({ secret: 'secret-sess-key', 
-					cookie: { maxAge: 60000 }}));
+					cookie: { maxAge: 2 * 60000 }, //2 minutes
+					rolling: true
+				}));
 
 app.use(function(req, res, next){
 
