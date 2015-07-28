@@ -21,13 +21,13 @@ Refugees United Challenge #2
  git clone <path> && cd <path>
 ```
 
-3) install dependencies via npm:
+3) install dependencies locally via npm:
 
 ```sh	
  npm install <pkg>
 ```
 
-3.1) install globally and link global packages to local project
+3.1) install globally and link packages locally:
 
 ```sh	
  sudo npm i <pkg> -g
@@ -36,8 +36,8 @@ Refugees United Challenge #2
 
 * expressjs - web framework
 * express-session - sessioning
-* express-bunyan-logger - change logger level `off` to `info` in app.js
-* jade - templating
+* mustache-express - templating engine
+* (optional) express-bunyan-logger - default logger level in app.js - `off`
 * mongojs - implements the mongo api
 * body-parser - request parameterizer
 * node-uuid - universal ID generator
@@ -51,7 +51,7 @@ Refugees United Challenge #2
 5) import data into mongodb
 
 ```sh
- ./bin/mongoload
+ ./bin/moload
 ```
 
 4) run

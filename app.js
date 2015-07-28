@@ -6,8 +6,10 @@ var path = require('path');
 var bodyParser = require("body-parser");
 var mongojs = require("mongojs");
 var db = mongojs("refunite", ['people']);
+var mustacheExpress = require('mustache-express');
 
-app.engine('html', require('ejs').renderFile);
+// app.engine('html', require('ejs').renderFile);
+app.engine('html', mustacheExpress()); 
 app.set('view engine', 'html');
 app.set('views', __dirname+'/views');
 
@@ -50,23 +52,35 @@ app.use(function(req, res, next){
 			"/profile/view",
 			"/change"].indexOf(req.originalUrl) >= 0){
 
-			if(!req.session.user)
+			if(!req.session.user){
+
 				res.json(201, {"request":"failed"});
+				return;
+			}
 		}
 		else if(["/", "/register"].indexOf(req.originalUrl) >= 0){
 
-			if(req.session.user)
+			if(req.session.user){
+
 				res.json(201, {"request":"failed"});
+				return;
+			}
 		}
 	}
 	else{
 
 		if(req.originalUrl!="/auth/logout"){
 
-			if(!req.session.user)
+			if(!req.session.user){
+
 				res.render("guest");
-			else
+				return;
+			}
+			else{
+
 				res.render("authorized");
+				return;
+			}
 		}
 	}
 
