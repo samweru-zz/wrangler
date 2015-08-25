@@ -4,17 +4,28 @@
 	padding:0px;
 }
 
+html{
+
+	max-height: 100%;
+}
+
+body{
+
+	height: 100%;
+}
+
 div#alert{
 
 	max-width: 50%;
 	margin: 0 auto;
 	margin-bottom: 10px;
+	margin-top: 10px;
 	font-weight: bold;
 }
 
-div.title{
+div#body-container{
 
-	padding: 3px;
+	/*none*/
 }
 
 .inactive {
