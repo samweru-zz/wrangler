@@ -1,5 +1,5 @@
 var express = require('express');
-// var session = require('express-session');
+var session = require('express-session');
 var logger = require('express-bunyan-logger');
 var app = express();
 var path = require('path');
@@ -37,9 +37,21 @@ app.use(logger({
     }]
 }));
 
+// session
+app.use(session({ 
+
+	secret: 'secret-sess-key', 
+	cookie: { 
+
+		maxAge: 2 * 60000 //2 minutes
+	}, 
+	rolling: true
+
+}));
+
 
 app.use('/', require('./routes/index'));
-app.use('/users', require('./routes/users'));
+app.use('/user', require('./routes/user'));
 app.use('/people', require('./routes/people'));
 app.use('/person', require('./routes/person'));
 

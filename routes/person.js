@@ -4,6 +4,24 @@ var sha1 = require("crypto-js/sha1");
 var validator = require('validator');
 var router = express.Router();
 
+router.post("/find/:uuid", function(req, res){
+
+	var db = req.db;
+	var body = req.body;
+
+	var uuid  = req.params.uuid;
+
+	db.people.find({guid:uuid}, function(err, user){
+
+		console.log(user);
+
+		if (err) 
+			res.json(500, err);
+		else 
+			res.json(201, user);
+	})	
+})
+
 router.post('/new', function(req, res){
 
 	var db = req.db;
@@ -17,16 +35,17 @@ router.post('/new', function(req, res){
 		var surname = body.surname || "";
 		var othernames = body.othernames || "";
 		var dob = body.dob || "";
+		var email = body.email || "";
 
 		if(!validator.isEmpty(password) &&
-			!validator.isEmpty(surname) &&
-			!validator.isEmpty(othernames)){
+			validator.isEmail(email)){
 
 			var data = {
 
 				id 			: docs[0].id + 1,
 				guid 		: uuid(),
 				password 	: sha1(password).toString(),
+				email		: email,
 				picture 	: "http://placehold.it/32x32",
 				tags 		: [],
 				friends 	: [],
@@ -52,7 +71,7 @@ router.post('/new', function(req, res){
 			res.json(200, {
 
 				success:false,
-				message:"Required password|surname|othernames"
+				message:"Required password|email!"
 			})
 		}
 	});

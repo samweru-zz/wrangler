@@ -18,7 +18,23 @@ router.post('/list', function(req, res) {
 		}
 		else {
 
-			res.json({data: data});
+			var users = [];
+			for (var idx in data) {
+
+				var user = data[idx];
+				users.push({
+
+					"id":user.id,
+					"uuid":user.uuid,
+					"name":user.name,
+					"email":user.email,
+					"age":user.age,
+					"gender":user.gender,
+					"company":user.company
+				});
+			}
+
+			res.json({data: users});
 		}
 	});
 });
