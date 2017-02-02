@@ -5,9 +5,8 @@ var app = express();
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require("body-parser");
-var mongojs = require("mongojs");
-var db = mongojs("refunite", ['people']);
 var mustacheExpress = require('mustache-express');
+// var db = require("mongojs")("refunite", ['people']);
 
 app.engine('html', mustacheExpress()); 
 app.set('view engine', 'html');
@@ -20,11 +19,11 @@ app.use(express.static(path.join(__dirname, 'static/dev')));
 app.use(cookieParser());
 
 // Make our db accessible to our router
-app.use(function(req, res, next){
+// app.use(function(req, res, next){
 
-    req.db = db;
-    next();
-});
+//     req.db = db;
+//     next();
+// });
 
 // logger
 app.use(logger({

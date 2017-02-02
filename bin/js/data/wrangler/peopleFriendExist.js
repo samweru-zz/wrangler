@@ -1,17 +1,28 @@
 conn = new Mongo()
 db = conn.getDB("refunite")
 
-var orphan = []
+var allfriends = []
+var incorrectFormat = []
 
-db.people.find().forEach(function(person) { 
+var regex = new RegExp("^[A-Za-z]+\\s[A-Za-z]+$")
 
-	for(var idx in person.friends){
+db.people.find().forEach(function(person){
 
-		var personExists = db.people.find({name:person.friends[idx].name})
+	person.friends.forEach(function(friend){
 
-		if(!personExists)
-			orphan.push(person.friends[idx].name)
-	}
+		//Test for correct format
+		if(!regex.test(friend.name))
+			incorrectFormat.push(friend.name)
+
+		//Find distinct friends records
+		if(allfriends.indexOf(friend.name) < 0)
+			allfriends.push(friend.name)
+	})
 })
 
-print("Non existent friends: "+orphan.length)
+var allPeople = db.people.count()
+if(allfriends.length > allPeople)
+	var orphanFriends = allfriends.length - allPeople 
+
+print("Orphaned friends: "+orphanFriends)
+print("Incorrect formats: "+incorrectFormat.length)

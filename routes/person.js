@@ -1,80 +1,61 @@
 var express = require('express');
-var uuid = require('node-uuid');
 var sha1 = require("crypto-js/sha1");
 var validator = require('validator');
 var router = express.Router();
 
-router.post("/find/:uuid", function(req, res){
+var person = require("../controllers/person");
 
-	var db = req.db;
-	var body = req.body;
+router.post("/friends/friends/:id", function(req, res, next){
 
-	var uuid  = req.params.uuid;
+	var id  = parseInt(req.params.id);
 
-	db.people.find({guid:uuid}, function(err, user){
+	person.find(id, function(err, user){
 
-		console.log(user);
+		if(err)
+			res.json(500, err)
 
-		if (err) 
-			res.json(500, err);
-		else 
-			res.json(201, user);
-	})	
+		var names = []
+
+		user.friends.forEach(function(friend){
+
+			names.push(friend.name)
+		})
+
+		person.findNames(names, function(err, friends){
+
+			if(err)
+				res.json(500, err)
+			else
+				res.json(201, friends)
+		})
+	})
+})
+
+router.post("/find/:id", function(req, res){
+
+	var id  = parseInt(req.params.id);
+
+	person.find(id, function(err, user){
+
+		if(err)
+			res.json(500, err)
+		else
+			res.json(201, user)
+	})
 })
 
 router.post('/new', function(req, res){
 
 	var db = req.db;
 	var body = req.body;
+	
+	person.new(body, function(err, feedback){
 
-	console.log(body);
-
-	db.people.find({}).limit(1).sort({_id:-1}).toArray(function (err, docs){
-
-		var password = body.password || "";
-		var surname = body.surname || "";
-		var othernames = body.othernames || "";
-		var dob = body.dob || "";
-		var email = body.email || "";
-
-		if(!validator.isEmpty(password) &&
-			validator.isEmail(email)){
-
-			var data = {
-
-				id 			: docs[0].id + 1,
-				guid 		: uuid(),
-				password 	: sha1(password).toString(),
-				email		: email,
-				picture 	: "http://placehold.it/32x32",
-				tags 		: [],
-				friends 	: [],
-				registered 	: new Date().toISOString(),
-				name 		: surname + ", " + othernames,
-				age 		: new Date().getFullYear() - new Date(dob).getFullYear()
-			};
-
-			db.people.insert(data, function(err, user){
-
-				if (err) 
-					res.json(500, err);
-				else 
-					res.json(201, {
-
-						id:user.id, 
-						success:true
-					});
-			});
-		}
-		else{
-
-			res.json(200, {
-
-				success:false,
-				message:"Required password|email!"
-			})
-		}
-	});
+		if(err)
+			res.json(500, err)
+		else
+			res.json(201, feedback)
+	})
 });
 
 module.exports = router;
