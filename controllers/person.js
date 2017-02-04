@@ -1,4 +1,6 @@
 var uuid = require('node-uuid');
+var sha1 = require("crypto-js/sha1");
+var validator = require('validator');
 
 var db = require("mongojs")("refunite", ['people']);
 
@@ -19,7 +21,13 @@ var person = {
 			callback(err, docs)
 		})		
 	},
+	delete:function(id, callback){
 
+		db.people.remove({"id":id}, function(err, docs){
+
+			callback(err, docs)
+		})
+	},
 	new:function(user, callback){
 
 		db.people.find({}).limit(1).sort({_id:-1}).toArray(function (err, lastuser){
@@ -29,6 +37,14 @@ var person = {
 			var othernames = user.othernames || "";
 			var dob = user.dob || "";
 			var email = user.email || "";
+
+			var age = "";
+			if(!!dob)
+				age = new Date().getFullYear() - new Date(dob).getFullYear();
+
+			var fullname = "";
+			if(!!surname && !!othernames)
+				fullname = surname + ", " + othernames;
 
 			if(!validator.isEmpty(password) &&
 				validator.isEmail(email)){
@@ -43,11 +59,15 @@ var person = {
 					tags 		: [],
 					friends 	: [],
 					registered 	: new Date().toISOString(),
-					name 		: surname + ", " + othernames,
-					age 		: new Date().getFullYear() - new Date(dob).getFullYear()
+					name 		: fullname,
+					age 		: age
 				};
 
+				// console.log(data)
+
 				db.people.insert(data, function(err, newuser){
+
+					// console.log(newuser)
 
 					callback(err, {
 

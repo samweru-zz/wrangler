@@ -25,4 +25,38 @@ describe('Person',function(){
 			next()
 		})
 	})
+
+	var newId;
+
+	it("Add New", function(next){
+  
+		person.new({
+
+			"email":"pitsolu@gmail.com",
+			"password": "p@55w0rd"
+
+		}, function(err, feedback){
+
+			// console.log(err)
+
+			assert.equal(feedback.success, true)
+			assert.equal(feedback.message, "New user successfully saved!")
+
+			newId = feedback.id 
+
+			next()
+		})
+	})
+
+	it("Delete New", function(next){
+  
+		person.delete(newId, function(err, feedback){
+
+			// console.log(err)
+
+			assert.equal(feedback.ok, 1)
+
+			next()
+		})
+	})
 });
