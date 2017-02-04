@@ -9,9 +9,9 @@ describe('People',function(){
 		var page=1
 		var size=10		
   
-		people.list(1, 10, function(err, data){
+		people.list(page, size, function(err, data){
 
-			assert.equal(10, data.length)
+			assert.equal(size, data.length)
 
 			next()
 		})

@@ -13,7 +13,7 @@ var auth = {
 			db.people.findOne({
 
 				email    : email, 
-				password : sha1(body.password).toString()
+				password : sha1(password).toString()
 
 			}, callback);
 		}

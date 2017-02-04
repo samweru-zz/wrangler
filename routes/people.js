@@ -1,11 +1,19 @@
 var express = require('express');
 var router = express.Router();
 
+var people = require("../controllers/people");
+
 router.post('/list', function(req, res) {
 
 	var body = req.body;
 	var page = parseInt(body.page);
 	var size = parseInt(body.size);
+
+	if(isNaN(page))
+		page=1
+
+	if(isNaN(size))
+		size=10
 
 	people.list(page, size, function(err, data){
 

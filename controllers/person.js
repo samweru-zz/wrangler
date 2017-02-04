@@ -6,6 +6,35 @@ var db = require("mongojs")("refunite", ['people']);
 
 var person = {
 
+	update:function(userId, changeSet, callback){
+
+		db.people.update({'id': userId}, {$set:changeSet}, {}, function(err, docs){
+
+			callback(err, docs)
+		});
+	},
+	changePassword:function(userId, opassword, npassword, callback){
+
+		var oldPassword = sha1(opassword).toString()
+		var newPassword = sha1(npassword).toString()
+
+		db.people.findAndModify({
+
+				query: {
+
+					"id":userId,
+					"password":oldPassword
+				},
+				update: { 
+
+					$set: { 
+
+						password:newPassword
+					}
+				},
+			},
+		callback);
+	},
 	findNames:function(names, callback){
 
 		db.people.find({"name":{$in:names}},function(err, docs){
@@ -13,7 +42,6 @@ var person = {
 			callback(err, docs)
 		})
 	},
-
 	find:function(id, callback){
 		
 		db.people.findOne({"id":id}, function(err, docs){
@@ -63,11 +91,7 @@ var person = {
 					age 		: age
 				};
 
-				// console.log(data)
-
 				db.people.insert(data, function(err, newuser){
-
-					// console.log(newuser)
 
 					callback(err, {
 

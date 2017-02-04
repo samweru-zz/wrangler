@@ -26,23 +26,50 @@ describe('Person',function(){
 		})
 	})
 
-	var newId;
+	var newUserId;
+	var newUserEmail = "pitsolu@gmail.com";
+	var newUserPassword = "p@55w0rd";
 
 	it("Add New", function(next){
   
 		person.new({
 
-			"email":"pitsolu@gmail.com",
-			"password": "p@55w0rd"
+			"email":newUserEmail,
+			"password":newUserPassword 
 
 		}, function(err, feedback){
-
-			// console.log(err)
 
 			assert.equal(feedback.success, true)
 			assert.equal(feedback.message, "New user successfully saved!")
 
-			newId = feedback.id 
+			newUserId = feedback.id 
+
+			next()
+		})
+	})
+
+	it("Change Password", function(next){
+
+		var oldPassword = newUserPassword;
+		var newPassword = "p0zzwOrd";
+
+		person.changePassword(newUserId, oldPassword, newPassword, function(err, docs, feedback){
+
+			// console.log(feedback)
+
+			assert.isTrue(feedback.updatedExisting)
+
+			next()
+		})
+	})
+
+	it("Update Profile", function(next){
+
+		person.update(newUserId, {tags:["A","B","C"]}, function(err, feedback){
+
+			// console.log(feedback)
+			
+			assert.equal(feedback.ok, 1)
 
 			next()
 		})
@@ -50,9 +77,7 @@ describe('Person',function(){
 
 	it("Delete New", function(next){
   
-		person.delete(newId, function(err, feedback){
-
-			// console.log(err)
+		person.delete(newUserId, function(err, feedback){
 
 			assert.equal(feedback.ok, 1)
 
