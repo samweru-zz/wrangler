@@ -1,6 +1,6 @@
 var assert = require('chai').assert;
 
-var people = require("../controllers/people")
+var people = require("../../controllers/people")
 
 describe('People',function(){
 

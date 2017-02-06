@@ -1,6 +1,6 @@
 var assert = require('chai').assert;
 
-var auth = require("../controllers/auth");
+var auth = require("../../controllers/auth");
 
 describe('Auth',function(){
 
