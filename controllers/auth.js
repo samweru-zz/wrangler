@@ -1,7 +1,7 @@
-var sha1 = require("crypto-js/sha1");
+var sha1 = require("sha1");
 var validator = require('validator');
 
-var db = require("mongojs")("refunite", ['people']);
+var db = require("mongojs")("wrangler", ['people']);
 
 var auth = {
 

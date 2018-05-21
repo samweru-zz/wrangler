@@ -1,5 +1,5 @@
 conn = new Mongo()
-db = conn.getDB("refunite")
+db = conn.getDB("wrangler")
 
 var persons = []
 db.people.find().forEach(function(person){

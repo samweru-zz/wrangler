@@ -1,3 +1,3 @@
 conn = new Mongo()
-db = conn.getDB("refunite")
+db = conn.getDB("wrangler")
 printjson(db.people.getIndexes())

@@ -1,5 +1,5 @@
 conn = new Mongo()
-db = conn.getDB("refunite")
+db = conn.getDB("wrangler")
 //sparse not to index empty fields
 db.people.ensureIndex({"phone": 1}, {unique: true, sparse:true}) 
 db.people.ensureIndex({"guid": 1}, {unique: true})

@@ -1,4 +1,4 @@
-var db = require("mongojs")("refunite", ['people']);
+var db = require("mongojs")("wrangler", ['people']);
 
 var people = {
 

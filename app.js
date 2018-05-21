@@ -6,7 +6,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require("body-parser");
 var mustacheExpress = require('mustache-express');
-// var db = require("mongojs")("refunite", ['people']);
+// var db = require("mongojs")("wrangler", ['people']);
 
 app.engine('html', mustacheExpress()); 
 app.set('view engine', 'html');
