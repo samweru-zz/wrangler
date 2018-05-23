@@ -2,6 +2,9 @@
 
 This is an attempt at wrangling unruly data although unfinished, it gives a hint at how it can be accomplished. In the file `fix/people.json` exists a list of peoples records who may be related in some way. Wrangling assists us to find out how.
 
+![data-wrangler](https://raw.githubusercontent.com/samweru/wrangler/master/pic/wrangler.png)
+Hey! Didn't say I succeded. :smiley:
+
 The aim is to create a network that recommends 'people you may know'
 
 ### Getting Started
