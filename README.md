@@ -5,7 +5,7 @@ This is an attempt at wrangling unruly data although unfinished, it gives a hint
 The aim is to create a network that recommends 'people you may know'
 
 ![data-wrangler](https://raw.githubusercontent.com/samweru/wrangler/master/pic/wrangler.png)
-Hey! Didn't say I succeded. :grin:
+</br>Hey! Didn't say I succeded. :grin:
 
 ### Getting Started
 
