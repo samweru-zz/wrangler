@@ -3,6 +3,7 @@ db = conn.getDB("wrangler")
 
 var distinctFriends = []
 var allPeople = []
+var allFriends = []
 
 db.people.find().forEach(function(person){
 
@@ -10,15 +11,19 @@ db.people.find().forEach(function(person){
 
 	person.friends.forEach(function(friend){
 
+		allFriends.push(friend.name)
+
 		//Find distinct friends records
 		if(distinctFriends.indexOf(friend.name) < 0)
 			distinctFriends.push(friend.name)
 	})
 })
 
+print("All friends in peoples records: "+ allFriends.length)
 print("All peoples records: "+ allPeople.length)
 print("All distinct friends: "+ distinctFriends.length)
 
 var peopleFriends = allPeople.filter(function(x) { return distinctFriends.indexOf(x) > -1 })
 
 print("All friends with people records: "+ peopleFriends.length)
+print("Orphaned distinct friends: ", distinctFriends.length - peopleFriends.length)
