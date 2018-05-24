@@ -10,4 +10,4 @@ db.people.find().forEach(function(person){
 	}
 })
 
-print("Persons with inconsistent gender: "+persons.length)
+print("Persons with indistinct gender: "+persons.length)
