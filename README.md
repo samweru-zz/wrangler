@@ -38,13 +38,13 @@ npm test
 
 ### Wrangler Scripts
 
-There are a few scripts to `bin/wrangler/*` that assist in understanding the nature of the data. For example, you can run check `emailDuplicatesExist.js` :
+There are a few scripts to `bin/wrangler/*` that assist in understanding the nature of the data. For example, you can run check `emailDuplicates.js` :
 
 ```sh
 mongo bin/wrangler/emailDuplicates.js
 ```
 
-There is no web client yet which means you may have to use a cli web client to run whatever web request are available. You can also check tests to see whatever functionality is available. Become a contributer, why not? :)
+There is no web client yet which means you may have to use a cli web client to run whatever web request are available. You can also check tests to see whatever functionality is available. Become a contributer, why not? :sweat_smile:
 
 
 
