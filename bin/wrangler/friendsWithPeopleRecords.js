@@ -23,7 +23,11 @@ print("All friends in peoples records: "+ allFriends.length)
 print("All peoples records: "+ allPeople.length)
 print("All distinct friends: "+ distinctFriends.length)
 
-var peopleFriends = allPeople.filter(function(x) { return distinctFriends.indexOf(x) > -1 })
+//itersection
+var peopleFriends = allPeople.filter(function(person){
+
+	return distinctFriends.indexOf(person) > -1 
+})
 
 print("All friends with people records: "+ peopleFriends.length)
 print("Orphaned distinct friends: ", distinctFriends.length - peopleFriends.length)
