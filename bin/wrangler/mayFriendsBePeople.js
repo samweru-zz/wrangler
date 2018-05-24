@@ -21,4 +21,4 @@ print("All distinct friends: "+ distinctFriends.length)
 
 var peopleFriends = allPeople.filter(function(x) { return distinctFriends.indexOf(x) > -1 })
 
-print("All friend with people records: "+ peopleFriends.length)
+print("All friends with people records: "+ peopleFriends.length)
