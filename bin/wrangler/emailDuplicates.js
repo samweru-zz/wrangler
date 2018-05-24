@@ -9,7 +9,7 @@ var emailDuplicates = db.people.aggregate({
         $sum : 1 
       } 
     } 
-  },
+  },  
   { 
     $match : { 
       total : { 
